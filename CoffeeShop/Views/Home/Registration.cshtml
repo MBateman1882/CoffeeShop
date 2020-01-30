@@ -7,7 +7,7 @@
 <h1>Registration</h1>
 <p>* = Required Field</p>
 
-<form asp-controller="Home" asp-action="Summary">
+<form asp-controller="Home" asp-action="MakeNewUser">
     <div class="form-group">
         <label>User Name* (Use '_' for space)</label>
         <input type="text" class="form-control" name="userName" placeholder="User Name" pattern="[A-Za-z0-9_]{3,}" required />
@@ -25,8 +25,8 @@
         <input type="text" class="form-control" name="email" placeholder="Email" pattern="(^[A-Za-z0-9._-]{1,64}@('@'){1}[A-Za-z0-9-]{1,63}\.{1}[a-z]{2,3}$)" required />
     </div>
     <div class="form-group">
-        <label>Date of Birth*</label>
-        <input type="date" class="form-control" name="dateOfBirth" required />
+        <label>Date of Birth</label>
+        <input type="date" class="form-control" name="dateOfBirth" />
     </div>
     <div class="form-group">
         <label>Password*</label>

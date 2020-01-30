@@ -1,9 +1,11 @@
 ﻿
-@model RegistrationPageModel
+@model Users
 
-<h1>Profile</h1>
-<h2>Welcome @Model.UserName</h2>
-<p>Name: @Model.FirstName @Model.LastName</p>
-<p>Date of Birth: @Model.DateOfBirth.ToString("MM/dd/yyyy")</p>
-<p>Email: @Model.Email</p>
-
+@if ((bool)TempData["Registered"])
+{
+    <h3>Welcome @Model.UserName</h3>
+}
+else
+{
+    <h3>User Name and Password do not match. Please try again.</h3>
+}

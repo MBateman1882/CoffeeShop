@@ -20,6 +20,7 @@ namespace CoffeeShop.Controllers
 
         public IActionResult Index()
         {
+            TempData["Registered"] = false;
             return View();
         }
 
@@ -30,20 +31,49 @@ namespace CoffeeShop.Controllers
             return View();
         }
 
-        //need one action to take those user inputs and display the user name in a new view
-        public IActionResult Summary (RegistrationPageModel registration)
+        public IActionResult MakeNewUser(Users user)
         {
-            // use ViewBag to hold data to be displayed in the View
-            //ViewBag.UserName = userName;
-            //ViewBag.Email = email;
-            //ViewBag.Password = password;
+            ShopDBContext db = new ShopDBContext();
 
-            return View(registration);
+            db.Users.Add(user);
+
+            db.SaveChanges();
+
+            return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult Login()
         {
             return View();
+        }
+
+        //need one action to take those user inputs and display the user name in a new view
+        public IActionResult Summary (string loginUserName, string loginPassword)
+        {
+            ShopDBContext db = new ShopDBContext();
+
+            Users foundResult = new Users();
+
+            TempData["Registered"] = false;
+
+            foreach (Users user in db.Users)
+            {
+                if (user.UserName == loginUserName && user.Password == loginPassword)
+                {
+                    foundResult = user;
+
+                    TempData["Registered"] = true;
+                }
+            }
+
+            return View(foundResult);
+        }
+
+        public IActionResult Shop()
+        {
+            ShopDBContext db = new ShopDBContext();
+
+            return View(db);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

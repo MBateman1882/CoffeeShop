@@ -4,8 +4,9 @@
 @if ((bool)TempData["Registered"])
 {
     <h3>Welcome @Model.UserName</h3>
+    <h3>You may enter the shop <a href="/Home/Shop">here</a>.</h3>
 }
 else
 {
-    <h3>User Name and Password do not match. Please try again.</h3>
+    <h3>User Name and Password do not match. <a href="/Home/Login">Please try again.</a></h3>
 }

@@ -21,6 +21,7 @@ namespace CoffeeShop.Controllers
         public IActionResult Index()
         {
             TempData["Registered"] = false;
+
             return View();
         }
 
@@ -69,7 +70,7 @@ namespace CoffeeShop.Controllers
             return View(foundResult);
         }
 
-        public IActionResult Shop()
+        public IActionResult Shop(decimal price)
         {
             ShopDBContext db = new ShopDBContext();
 

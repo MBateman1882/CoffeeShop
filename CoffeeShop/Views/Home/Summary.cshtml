@@ -1,7 +1,8 @@
-﻿
+﻿@using Microsoft.AspNetCore.Http
+
 @model Users
 
-@if ((bool)TempData["Registered"])
+@if (Convert.ToBoolean(Context.Session.GetString("Registered")))
 {
     <h3>Welcome @Model.UserName</h3>
     <h3>You may enter the shop <a href="/Home/Shop">here</a>.</h3>

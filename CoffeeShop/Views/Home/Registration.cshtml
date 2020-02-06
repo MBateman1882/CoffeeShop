@@ -1,4 +1,5 @@
-﻿
+﻿@model Users
+
 @{
     ViewData["Title"] = "Registration";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -8,9 +9,13 @@
 <p>* = Required Field</p>
 
 <form asp-controller="Home" asp-action="MakeNewUser">
+    <div asp-validation-summary="ModelOnly">
+        <span>Please correct the following errors</span>
+    </div>
     <div class="form-group">
-        <label>User Name* (Use '_' for space)</label>
-        <input type="text" class="form-control" name="userName" placeholder="User Name" pattern="[A-Za-z0-9_]{3,}" required />
+        <label asp-for="UserName"></label>
+        <input asp-for="UserName" />
+        <span asp-validation-for="UserName" class="alert-danger"></span>
     </div>
     <div class="form-groups">
         <label>First Name</label>
@@ -30,10 +35,10 @@
     </div>
     <div class="form-group">
         <label>Password*</label>
-        <input type="password" class="form-control" name="password" placeholder="Password" required/>
+        <input type="password" class="form-control" name="password" placeholder="Password" required />
     </div>
     <div class="form-group">
-        <input type="submit" class="form-control btn btn-primary"/>
+        <input type="submit" class="form-control btn btn-primary" />
     </div>
 </form>
 

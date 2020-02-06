@@ -1,4 +1,5 @@
-﻿
+﻿@using Microsoft.AspNetCore.Http
+
 @{
     ViewData["Title"] = "Shop";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -29,9 +30,9 @@
             <td>$@Math.Round(item.Price, 2)</td>
 
 
-            @if ((bool)TempData["Registered"])
+            @if (Convert.ToBoolean(Context.Session.GetString("Registered")) == true)
             {
-                <td><button onclick="location.href= '@Url.Action("Shop", "Home", new { price = item.Price })'" )">Buy</button></td>
+                <td><button onclick="location.href= '@Url.Action("Purchase", "Home", new { price = item.Price })'">Buy</button></td>
             }
         </tr>
     }

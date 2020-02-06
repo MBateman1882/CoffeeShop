@@ -1,0 +1,10 @@
+﻿@using Microsoft.AspNetCore.Http
+
+@{
+    ViewData["Title"] = "LowFunds";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h1>Insufficient Funds</h1>
+<h4>Cost of item: @ViewBag.Price</h4>
+<h4>Current funds: $@Math.Round(Convert.ToDecimal(Context.Session.GetString("Funds")), 2)</h4>
+

@@ -34,6 +34,12 @@ namespace CoffeeShop
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();
+            //session
+            services.AddDistributedMemoryCache();
+            services.AddSession(options => {
+                options.IdleTimeout = TimeSpan.FromMinutes(1);//You can set Time   
+            });
+            services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,6 +58,9 @@ namespace CoffeeShop
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
+            //session
+            app.UseSession();
 
             app.UseRouting();
 

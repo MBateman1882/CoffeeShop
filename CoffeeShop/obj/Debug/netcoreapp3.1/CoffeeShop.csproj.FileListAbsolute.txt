@@ -129,8 +129,6 @@ C:\Users\mbate\source\repos\CoffeeShop\CoffeeShop\bin\Debug\netcoreapp3.1\Coffee
 C:\Users\mbate\source\repos\CoffeeShop\CoffeeShop\bin\Debug\netcoreapp3.1\CoffeeShop.pdb
 C:\Users\mbate\source\repos\CoffeeShop\CoffeeShop\bin\Debug\netcoreapp3.1\CoffeeShop.Views.dll
 C:\Users\mbate\source\repos\CoffeeShop\CoffeeShop\bin\Debug\netcoreapp3.1\CoffeeShop.Views.pdb
-C:\Users\mbate\source\repos\CoffeeShop\CoffeeShop\obj\Debug\netcoreapp3.1\CoffeeShop.MvcApplicationPartsAssemblyInfo.cs
-C:\Users\mbate\source\repos\CoffeeShop\CoffeeShop\obj\Debug\netcoreapp3.1\CoffeeShop.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\mbate\source\repos\CoffeeShop\CoffeeShop\obj\Debug\netcoreapp3.1\CoffeeShop.Views.pdb
 C:\Users\mbate\source\repos\CoffeeShop\CoffeeShop\obj\Debug\netcoreapp3.1\CoffeeShop.dll
 C:\Users\mbate\source\repos\CoffeeShop\CoffeeShop\obj\Debug\netcoreapp3.1\CoffeeShop.pdb
@@ -139,3 +137,8 @@ C:\Users\mbate\source\repos\CoffeeShop\CoffeeShop\obj\Debug\netcoreapp3.1\Razor\
 C:\Users\mbate\source\repos\CoffeeShop\CoffeeShop\obj\Debug\netcoreapp3.1\Razor\Views\Home\Login.cshtml.g.cs
 C:\Users\mbate\source\repos\CoffeeShop\CoffeeShop\obj\Debug\netcoreapp3.1\Razor\Views\Home\MakeNewUser.cshtml.g.cs
 C:\Users\mbate\source\repos\CoffeeShop\CoffeeShop\obj\Debug\netcoreapp3.1\Razor\Views\Home\Shop.cshtml.g.cs
+C:\Users\mbate\source\repos\CoffeeShop\CoffeeShop\obj\Debug\netcoreapp3.1\Razor\Views\Home\LowFunds.cshtml.g.cs
+C:\Users\mbate\source\repos\CoffeeShop\CoffeeShop\bin\Debug\netcoreapp3.1\System.Security.Cryptography.Pkcs.dll
+C:\Users\mbate\source\repos\CoffeeShop\CoffeeShop\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\System.Security.Cryptography.Pkcs.dll
+C:\Users\mbate\source\repos\CoffeeShop\CoffeeShop\obj\Debug\netcoreapp3.1\CoffeeShop.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\mbate\source\repos\CoffeeShop\CoffeeShop\obj\Debug\netcoreapp3.1\CoffeeShop.MvcApplicationPartsAssemblyInfo.cache

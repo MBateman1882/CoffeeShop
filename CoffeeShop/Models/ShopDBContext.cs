@@ -16,6 +16,7 @@ namespace CoffeeShop.Models
         }
 
         public virtual DbSet<Items> Items { get; set; }
+        public virtual DbSet<UserItems> UserItems { get; set; }
         public virtual DbSet<Users> Users { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -44,6 +45,29 @@ namespace CoffeeShop.Models
                 entity.Property(e => e.Price).HasColumnType("money");
             });
 
+            modelBuilder.Entity<UserItems>(entity =>
+            {
+                entity.HasKey(e => e.UserItemId);
+
+                entity.Property(e => e.UserItemId).HasColumnName("UserItemID");
+
+                entity.Property(e => e.ItemId).HasColumnName("ItemID");
+
+                entity.Property(e => e.UserId).HasColumnName("UserID");
+
+                entity.HasOne(d => d.Item)
+                    .WithMany(p => p.UserItems)
+                    .HasForeignKey(d => d.ItemId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_UserItems_Items");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.UserItems)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_UserItems_Users");
+            });
+
             modelBuilder.Entity<Users>(entity =>
             {
                 entity.Property(e => e.Id).HasColumnName("ID");
@@ -55,6 +79,8 @@ namespace CoffeeShop.Models
                     .HasMaxLength(50);
 
                 entity.Property(e => e.FirstName).HasMaxLength(50);
+
+                entity.Property(e => e.Funds).HasColumnType("money");
 
                 entity.Property(e => e.LastName).HasMaxLength(50);
 

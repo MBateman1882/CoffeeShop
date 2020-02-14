@@ -12,7 +12,6 @@ namespace CoffeeShop.Models
         }
 
         public int Id { get; set; }
-
         //add DataAnnotations to allow for JQuery Validation
         [Required(AllowEmptyStrings = false, ErrorMessage = "Please provide a User Name.")]
         [StringLength(maximumLength: 20, MinimumLength = 3, ErrorMessage = "Length between 3 and 20 characters")]

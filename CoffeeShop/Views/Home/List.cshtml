@@ -1,0 +1,48 @@
+﻿@using Microsoft.AspNetCore.Http
+
+@{
+    ViewData["Title"] = "List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model ShopDBContext
+
+<h1>List</h1>
+
+@{ 
+    List<UserItems> cart = new List<UserItems>();
+}
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Details</th>
+    </tr>
+
+    @foreach (UserItems userItem in Model.UserItems)
+    {
+        if (Convert.ToInt32(Context.Session.GetString("Id")) == userItem.UserId)
+        {
+            cart.Add(userItem);
+        }
+    }
+
+    @foreach (UserItems item in cart)
+    {
+        @foreach (Items boughtItem in Model.Items)
+        {
+            if (item.ItemId == boughtItem.Id)
+            {
+                <tr>
+                    <td>@boughtItem.Name</td>
+                    <td>$@Math.Round(boughtItem.Price, 2)</td>
+                    <td><button onclick="location.href= '@Url.Action("Details", "Home", new { id = boughtItem.Id })'">Item Details</button></td>
+                    <td><button onclick="location.href= '@Url.Action("Delete", "Home", new { id = item.UserItemId })'">Delete</button></td>
+                </tr>
+            }
+        }
+    }
+
+</table>
+
+<h5><a href="/Home/Shop">Back to Shop</a></h5>

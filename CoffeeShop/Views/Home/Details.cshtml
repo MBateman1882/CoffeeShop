@@ -1,0 +1,14 @@
+﻿
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model  Items
+
+<h1>Details</h1>
+
+<h4>Item name: @Model.Name</h4>
+<h4>Item description: @Model.Description</h4>
+<h4>Item price: $@Math.Round(Convert.ToDecimal(@Model.Price), 2)</h4>
+<h5><a href="/Home/List">Back to Cart</a></h5>

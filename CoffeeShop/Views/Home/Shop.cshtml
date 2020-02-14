@@ -7,8 +7,20 @@
 
 @model ShopDBContext
 
-
 <h1>Welcome to the Shop</h1>
+
+@if (Convert.ToBoolean(Context.Session.GetString("Registered")) == true)
+{
+    @foreach (Users user in @Model.Users)
+    {
+        if (user.UserName == Context.Session.GetString("User"))
+        {
+            var currentUser = user;
+
+            <a>Current balance: $@Math.Round(Convert.ToDecimal(currentUser.Funds), 2)</a>
+        }
+    }
+}
 
 <table>
     <tr>
@@ -21,21 +33,31 @@
 
     @foreach (Items item in Model.Items)
     {
-
-
         <tr>
             <td>@item.Name</td>
             <td>@item.Description</td>
             <td>@item.Quantity</td>
             <td>$@Math.Round(item.Price, 2)</td>
 
-
             @if (Convert.ToBoolean(Context.Session.GetString("Registered")) == true)
             {
-                <td><button onclick="location.href= '@Url.Action("Purchase", "Home", new { price = item.Price })'">Buy</button></td>
+                if (item.Quantity > 0)
+                {
+                    <td><button onclick="location.href= '@Url.Action("Purchase", "Home", new { price = item.Price, name = item.Name })'">Buy</button></td>
+                }
+                else
+                {
+                    <td>Product Unavailable</td>
+                }
+                <td><button onclick="location.href= '@Url.Action("AddInventory", "Home", new { name = item.Name })'">Restock Product</button></td>
             }
         </tr>
     }
 
 </table>
+
+@if (Convert.ToBoolean(Context.Session.GetString("Registered")) == true)
+{
+    <h5><a href="/Home/List">View Cart</a></h5>
+}
 

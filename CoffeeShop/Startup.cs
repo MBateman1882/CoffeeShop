@@ -32,12 +32,17 @@ namespace CoffeeShop
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            //use services object and set the IdentityOptions to check for confirm email.
+            services.Configure<IdentityOptions>(options => options.SignIn.RequireConfirmedEmail = true);
+
             services.AddControllersWithViews();
             services.AddRazorPages();
+
             //session
             services.AddDistributedMemoryCache();
             services.AddSession(options => {
-                options.IdleTimeout = TimeSpan.FromMinutes(1);//You can set Time   
+                options.IdleTimeout = TimeSpan.FromMinutes(5);//You can set Time   
             });
             services.AddMvc();
         }

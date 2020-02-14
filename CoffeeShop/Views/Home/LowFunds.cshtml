@@ -4,7 +4,10 @@
     ViewData["Title"] = "LowFunds";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+@model Users
+
 <h1>Insufficient Funds</h1>
-<h4>Cost of item: @ViewBag.Price</h4>
-<h4>Current funds: $@Math.Round(Convert.ToDecimal(Context.Session.GetString("Funds")), 2)</h4>
+<h4>Cost of item exceeds your remaining balance.</h4>
+<h4>Current funds: $@Math.Round(Convert.ToDecimal(@Model.Funds), 2)</h4>
 

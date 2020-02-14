@@ -14,23 +14,21 @@ namespace CoffeeShop.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
+        //these private fields will be used as a way to load in the user and item data
+        private List<Items> itemList;
+        private List<Users> userList;
+        //private ShopDBContext db;
+
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
+            GetData();
         }
 
         public IActionResult Index()
         {
-            ShopDBContext db = new ShopDBContext();
+            //var x = db.UserItems.Where(userItems => userItems.UserId == 1).ToList();
 
-            //loop through Users, and find attached UserItems
-            
-
-            //grab user items and add to list
-            var userItems = db.UserItems.ToList();
-
-            //db.UserItems.Add(new UserItems() { ItemId = 1, UserId = 3 });
-            //db.SaveChanges();
             return View();
         }
 
@@ -57,12 +55,8 @@ namespace CoffeeShop.Controllers
             return View();
         }
 
-        //need one action to take those user inputs and display the user name in a new view
         public IActionResult Summary (string loginUserName, string loginPassword)
         {
-            //make a session object as a Key Value pair, value must be string
-            //HttpContext.Session.SetString("Funds", value);
-
             ShopDBContext db = new ShopDBContext();
 
             Users foundResult = new Users();
@@ -76,12 +70,9 @@ namespace CoffeeShop.Controllers
                     foundResult = user;
 
                     HttpContext.Session.SetString("Registered", "true");
-
-                    //TempData["Funds"] = foundResult.Funds;
                     HttpContext.Session.SetString("Funds", foundResult.Funds.ToString());
-
-                    //to pull value out of string call GetString method
-                    //Convert.ToDecimal(HttpContext.Session.GetString("Funds"));
+                    HttpContext.Session.SetString("User", foundResult.UserName.ToString());
+                    HttpContext.Session.SetString("Id", foundResult.Id.ToString());
                 }
             }
 
@@ -92,32 +83,121 @@ namespace CoffeeShop.Controllers
         {
             ShopDBContext db = new ShopDBContext();
 
-            //TempData["Registered"] = true;
-
             return View(db);
         }
 
-        public IActionResult Purchase(decimal price)
+        public IActionResult Purchase(decimal price, string name)
         {
             ShopDBContext db = new ShopDBContext();
+            Users currentUser = new Users();
+            Items boughtItem = new Items();
 
-            //TempData["Registered"] = true;
-
-            if (Convert.ToDecimal(HttpContext.Session.GetString("Funds")) - price < 0)
+            foreach(Users user in db.Users)
             {
-                return View("LowFunds", price);
+                if (user.UserName == HttpContext.Session.GetString("User"))
+                {
+                    currentUser = user;
+                }
+            }
+
+            if (currentUser.Funds - price < 0)
+            {
+                return View("LowFunds", currentUser);
             }
             else
             {
+                foreach (Items item in db.Items)
+                {
+                    if (item.Name == name)
+                    {
+                        boughtItem = item;
+                        boughtItem.Quantity -= 1;
+                        currentUser.Funds -= price;
+
+                        db.UserItems.Add(new UserItems { UserId = currentUser.Id, ItemId = boughtItem.Id });
+                    }
+                }
+
+                db.SaveChanges();
 
                 return View("Shop", db);
             }
         }
 
+        public IActionResult AddInventory(string name)
+        {
+            ShopDBContext db = new ShopDBContext();
+            Items supplyItem = new Items();
+
+            foreach (Items item in db.Items)
+            {
+                if (item.Name == name)
+                {
+                    supplyItem = item;
+                    supplyItem.Quantity += 1;
+                }
+            }
+            db.SaveChanges();
+
+            return View("Shop", db);
+        }
+
         public IActionResult LowFunds(decimal price)
         {
-            ViewBag.Price = "Testing";
+            ViewBag.Price = price;
             return View();
+        }
+
+        public IActionResult List()
+        { 
+            ShopDBContext db = new ShopDBContext();
+
+            return View(db);
+        }
+
+        public IActionResult Details(int id)
+        {
+            ShopDBContext db = new ShopDBContext();
+            Items foundItem = new Items();
+
+            foreach(Items item in db.Items)
+            {
+                if(item.Id == id)
+                {
+                    foundItem = item;
+                }
+            }
+            return View(foundItem);
+        }
+
+        public IActionResult Delete(int id)
+        {
+            ShopDBContext db = new ShopDBContext();
+            UserItems foundItem = new UserItems();
+
+            foreach(UserItems item in db.UserItems)
+            {
+                if(item.UserItemId == id)
+                {
+                    foundItem = item;
+                }
+            }
+
+            db.UserItems.Remove(foundItem);
+            db.SaveChanges();
+
+            return View("List", db);
+        }
+
+        //this method will load in my DB data
+        private void GetData()
+        {
+            ShopDBContext db = new ShopDBContext();
+            //call the items table and pull in the data to hold in our private field
+            //first called the items table
+            itemList = db.Items.ToList();
+            //now call the users table
+            userList = db.Users.ToList();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

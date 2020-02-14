@@ -5,6 +5,7 @@
 @if (Convert.ToBoolean(Context.Session.GetString("Registered")))
 {
     <h3>Welcome @Model.UserName</h3>
+    <h3>Your current balance is: $@Math.Round(Convert.ToDecimal(@Model.Funds), 2)</h3>
     <h3>You may enter the shop <a href="/Home/Shop">here</a>.</h3>
 }
 else
